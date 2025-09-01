@@ -1,0 +1,17 @@
+{
+  "name": "solid-libra-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init:ui": "node ./scripts/init-ui.mjs",
+    "add:ui": "node ./scripts/add-component.mjs",
+    "analyze:ui": "node ./scripts/analyze-deps.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.0"
+}

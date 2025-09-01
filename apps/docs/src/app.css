@@ -1,0 +1,1135 @@
+/* Libra UI Base Styles - Injected */
+
+/* src/styles/Libra.css */
+:root {
+  --brand-color: #2563eb;
+  --brand-color-hover: #2563eb;
+  --brand-color-rgb: 37, 99, 235;
+  /* Brand text color for accessibility */
+  --brand-color-text: #ffffff;
+
+  /* Primary colors */
+  --lb-primary: #3b82f6;
+  --lb-primary-hover: #2563eb;
+  /* Secondary colors */
+  --lb-secondary: #22c55e;
+  --lb-secondary-hover: #16a34a;
+  /* Warning colors */
+  --lb-warning: #f97316;
+  --lb-warning-hover: #ea580c;
+  /* Danger colors */
+  --lb-danger: #ef4444;
+  --lb-danger-hover: #dc2626;
+
+  /* Calendar Color */
+  --sunday-color: #ef4444;
+  --saturday-color: #3b82f6;
+
+  /* Table Header */
+  --lb-table-header-bg: var(--brand-color);
+  --lb-table-header-text: var(--brand-color-text);
+
+  /* Table Borders */
+  --lb-table-border-outer: #e2e8f0;
+  --lb-table-border-row: #6884a1;
+
+  /* Table Row */
+  --lb-table-row-bg: #ffffff;
+  --lb-table-row-bg-striped: #e7effa;
+  --lb-table-row-bg-active: #f9f9df;
+}
+
+/* 波紋アニメーション */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* --- Dialog Animation Keyframes --- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomAndSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes zoomAndSlideOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+}
+
+/* --- Dialog Animation Classes --- */
+/*
+  `animation-fill-mode: forwards;` は、アニメーション終了後も
+  その最後の状態（例: opacity: 0）を維持するために重要
+*/
+
+.animate-overlay-in {
+  animation: fadeIn 200ms ease-out forwards;
+}
+.animate-overlay-out {
+  animation: fadeOut 200ms ease-out forwards;
+}
+
+.animate-content-in {
+  animation: zoomAndSlideIn 200ms ease-out forwards;
+}
+.animate-content-out {
+  animation: zoomAndSlideOut 200ms ease-out forwards;
+}
+
+/* --- Drawer Animation Keyframes --- */
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToTop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+/* --- Drawer Animation Classes --- */
+/*
+  Dialogと同様に、アニメーション終了後も状態を維持するために
+  `animation-fill-mode: forwards;` が重要です。
+*/
+.animate-drawer-in-right {
+  animation: slideInFromRight 200ms ease-out forwards;
+}
+.animate-drawer-out-right {
+  animation: slideOutToRight 200ms ease-out forwards;
+}
+
+.animate-drawer-in-left {
+  animation: slideInFromLeft 200ms ease-out forwards;
+}
+.animate-drawer-out-left {
+  animation: slideOutToLeft 200ms ease-out forwards;
+}
+
+.animate-drawer-in-top {
+  animation: slideInFromTop 200ms ease-out forwards;
+}
+.animate-drawer-out-top {
+  animation: slideOutToTop 200ms ease-out forwards;
+}
+
+.animate-drawer-in-bottom {
+  animation: slideInFromBottom 200ms ease-out forwards;
+}
+.animate-drawer-out-bottom {
+  animation: slideOutToBottom 200ms ease-out forwards;
+}
+
+/* --- Accordion Animation Keyframes --- */
+/*
+  grid-template-rows を 0fr <-> 1fr に変化させることで、
+  要素の高さをJSで計算することなくスムーズなアニメーションを実現します。
+*/
+@keyframes accordion-down {
+  from {
+    grid-template-rows: 0fr;
+  }
+  to {
+    grid-template-rows: 1fr;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    grid-template-rows: 1fr;
+  }
+  to {
+    grid-template-rows: 0fr;
+  }
+}
+
+/* --- Accordion Animation Classes --- */
+.animate-accordion-down {
+  animation: accordion-down 200ms ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 200ms ease-out forwards; /* 閉じる時は状態を維持 */
+}
+
+
+/* --- Original app.css content below --- */
+
+/* Libra UI Base Styles - Injected */
+
+/* src/styles/Libra.css */
+:root {
+  --brand-color: #2563eb;
+  --brand-color-hover: #2563eb;
+  --brand-color-rgb: 37, 99, 235;
+  /* Brand text color for accessibility */
+  --brand-color-text: #ffffff;
+
+  /* Primary colors */
+  --lb-primary: #3b82f6;
+  --lb-primary-hover: #2563eb;
+  /* Secondary colors */
+  --lb-secondary: #22c55e;
+  --lb-secondary-hover: #16a34a;
+  /* Warning colors */
+  --lb-warning: #f97316;
+  --lb-warning-hover: #ea580c;
+  /* Danger colors */
+  --lb-danger: #ef4444;
+  --lb-danger-hover: #dc2626;
+
+  /* Calendar Color */
+  --sunday-color: #ef4444;
+  --saturday-color: #3b82f6;
+
+  /* Table Header */
+  --lb-table-header-bg: var(--brand-color);
+  --lb-table-header-text: var(--brand-color-text);
+
+  /* Table Borders */
+  --lb-table-border-outer: #e2e8f0;
+  --lb-table-border-row: #6884a1;
+
+  /* Table Row */
+  --lb-table-row-bg: #ffffff;
+  --lb-table-row-bg-striped: #e7effa;
+  --lb-table-row-bg-active: #f9f9df;
+}
+
+/* 波紋アニメーション */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* --- Dialog Animation Keyframes --- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomAndSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes zoomAndSlideOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+}
+
+/* --- Dialog Animation Classes --- */
+/*
+  `animation-fill-mode: forwards;` は、アニメーション終了後も
+  その最後の状態（例: opacity: 0）を維持するために重要
+*/
+
+.animate-overlay-in {
+  animation: fadeIn 200ms ease-out forwards;
+}
+.animate-overlay-out {
+  animation: fadeOut 200ms ease-out forwards;
+}
+
+.animate-content-in {
+  animation: zoomAndSlideIn 200ms ease-out forwards;
+}
+.animate-content-out {
+  animation: zoomAndSlideOut 200ms ease-out forwards;
+}
+
+/* --- Drawer Animation Keyframes --- */
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToTop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+/* --- Drawer Animation Classes --- */
+/*
+  Dialogと同様に、アニメーション終了後も状態を維持するために
+  `animation-fill-mode: forwards;` が重要です。
+*/
+.animate-drawer-in-right {
+  animation: slideInFromRight 200ms ease-out forwards;
+}
+.animate-drawer-out-right {
+  animation: slideOutToRight 200ms ease-out forwards;
+}
+
+.animate-drawer-in-left {
+  animation: slideInFromLeft 200ms ease-out forwards;
+}
+.animate-drawer-out-left {
+  animation: slideOutToLeft 200ms ease-out forwards;
+}
+
+.animate-drawer-in-top {
+  animation: slideInFromTop 200ms ease-out forwards;
+}
+.animate-drawer-out-top {
+  animation: slideOutToTop 200ms ease-out forwards;
+}
+
+.animate-drawer-in-bottom {
+  animation: slideInFromBottom 200ms ease-out forwards;
+}
+.animate-drawer-out-bottom {
+  animation: slideOutToBottom 200ms ease-out forwards;
+}
+
+/* --- Accordion Animation Keyframes --- */
+/*
+  grid-template-rows を 0fr <-> 1fr に変化させることで、
+  要素の高さをJSで計算することなくスムーズなアニメーションを実現します。
+*/
+@keyframes accordion-down {
+  from {
+    grid-template-rows: 0fr;
+  }
+  to {
+    grid-template-rows: 1fr;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    grid-template-rows: 1fr;
+  }
+  to {
+    grid-template-rows: 0fr;
+  }
+}
+
+/* --- Accordion Animation Classes --- */
+.animate-accordion-down {
+  animation: accordion-down 200ms ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 200ms ease-out forwards; /* 閉じる時は状態を維持 */
+}
+
+
+/* --- Original app.css content below --- */
+
+/* Libra UI Base Styles - Injected */
+
+/* src/styles/Libra.css */
+:root {
+  --brand-color: #2563eb;
+  --brand-color-hover: #2563eb;
+  --brand-color-rgb: 37, 99, 235;
+  /* Brand text color for accessibility */
+  --brand-color-text: #ffffff;
+
+  /* Primary colors */
+  --lb-primary: #3b82f6;
+  --lb-primary-hover: #2563eb;
+  /* Secondary colors */
+  --lb-secondary: #22c55e;
+  --lb-secondary-hover: #16a34a;
+  /* Warning colors */
+  --lb-warning: #f97316;
+  --lb-warning-hover: #ea580c;
+  /* Danger colors */
+  --lb-danger: #ef4444;
+  --lb-danger-hover: #dc2626;
+
+  /* Calendar Color */
+  --sunday-color: #ef4444;
+  --saturday-color: #3b82f6;
+
+  /* Table Header */
+  --lb-table-header-bg: var(--brand-color);
+  --lb-table-header-text: var(--brand-color-text);
+
+  /* Table Borders */
+  --lb-table-border-outer: #e2e8f0;
+  --lb-table-border-row: #6884a1;
+
+  /* Table Row */
+  --lb-table-row-bg: #ffffff;
+  --lb-table-row-bg-striped: #e7effa;
+  --lb-table-row-bg-active: #f9f9df;
+}
+
+/* 波紋アニメーション */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* --- Dialog Animation Keyframes --- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomAndSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes zoomAndSlideOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+}
+
+/* --- Dialog Animation Classes --- */
+/*
+  `animation-fill-mode: forwards;` は、アニメーション終了後も
+  その最後の状態（例: opacity: 0）を維持するために重要
+*/
+
+.animate-overlay-in {
+  animation: fadeIn 200ms ease-out forwards;
+}
+.animate-overlay-out {
+  animation: fadeOut 200ms ease-out forwards;
+}
+
+.animate-content-in {
+  animation: zoomAndSlideIn 200ms ease-out forwards;
+}
+.animate-content-out {
+  animation: zoomAndSlideOut 200ms ease-out forwards;
+}
+
+/* --- Drawer Animation Keyframes --- */
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToTop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+/* --- Drawer Animation Classes --- */
+/*
+  Dialogと同様に、アニメーション終了後も状態を維持するために
+  `animation-fill-mode: forwards;` が重要です。
+*/
+.animate-drawer-in-right {
+  animation: slideInFromRight 200ms ease-out forwards;
+}
+.animate-drawer-out-right {
+  animation: slideOutToRight 200ms ease-out forwards;
+}
+
+.animate-drawer-in-left {
+  animation: slideInFromLeft 200ms ease-out forwards;
+}
+.animate-drawer-out-left {
+  animation: slideOutToLeft 200ms ease-out forwards;
+}
+
+.animate-drawer-in-top {
+  animation: slideInFromTop 200ms ease-out forwards;
+}
+.animate-drawer-out-top {
+  animation: slideOutToTop 200ms ease-out forwards;
+}
+
+.animate-drawer-in-bottom {
+  animation: slideInFromBottom 200ms ease-out forwards;
+}
+.animate-drawer-out-bottom {
+  animation: slideOutToBottom 200ms ease-out forwards;
+}
+
+/* --- Accordion Animation Keyframes --- */
+/*
+  grid-template-rows を 0fr <-> 1fr に変化させることで、
+  要素の高さをJSで計算することなくスムーズなアニメーションを実現します。
+*/
+@keyframes accordion-down {
+  from {
+    grid-template-rows: 0fr;
+  }
+  to {
+    grid-template-rows: 1fr;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    grid-template-rows: 1fr;
+  }
+  to {
+    grid-template-rows: 0fr;
+  }
+}
+
+/* --- Accordion Animation Classes --- */
+.animate-accordion-down {
+  animation: accordion-down 200ms ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 200ms ease-out forwards; /* 閉じる時は状態を維持 */
+}
+
+
+/* --- Original app.css content below --- */
+
+/* Libra UI Base Styles - Injected */
+
+/* src/styles/Libra.css */
+:root {
+  --brand-color: #2563eb;
+  --brand-color-hover: #2563eb;
+  --brand-color-rgb: 37, 99, 235;
+  /* Brand text color for accessibility */
+  --brand-color-text: #ffffff;
+
+  /* Primary colors */
+  --lb-primary: #3b82f6;
+  --lb-primary-hover: #2563eb;
+  /* Secondary colors */
+  --lb-secondary: #22c55e;
+  --lb-secondary-hover: #16a34a;
+  /* Warning colors */
+  --lb-warning: #f97316;
+  --lb-warning-hover: #ea580c;
+  /* Danger colors */
+  --lb-danger: #ef4444;
+  --lb-danger-hover: #dc2626;
+
+  /* Calendar Color */
+  --sunday-color: #ef4444;
+  --saturday-color: #3b82f6;
+
+  /* Table Header */
+  --lb-table-header-bg: var(--brand-color);
+  --lb-table-header-text: var(--brand-color-text);
+
+  /* Table Borders */
+  --lb-table-border-outer: #e2e8f0;
+  --lb-table-border-row: #6884a1;
+
+  /* Table Row */
+  --lb-table-row-bg: #ffffff;
+  --lb-table-row-bg-striped: #e7effa;
+  --lb-table-row-bg-active: #f9f9df;
+}
+
+/* Custom classes using CSS variables */
+.bg-lb-primary {
+  background-color: var(--lb-primary);
+}
+.bg-lb-primary:hover {
+  background-color: var(--lb-primary-hover);
+}
+
+.bg-lb-secondary {
+  background-color: var(--lb-secondary);
+}
+.bg-lb-secondary:hover {
+  background-color: var(--lb-secondary-hover);
+}
+
+.bg-lb-warning {
+  background-color: var(--lb-warning);
+}
+.bg-lb-warning:hover {
+  background-color: var(--lb-warning-hover);
+}
+
+.bg-lb-danger {
+  background-color: var(--lb-danger);
+}
+.bg-lb-danger:hover {
+  background-color: var(--lb-danger-hover);
+}
+
+/* 波紋アニメーション */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* --- Dialog Animation Keyframes --- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomAndSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes zoomAndSlideOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+}
+
+/* --- Dialog Animation Classes --- */
+/*
+  `animation-fill-mode: forwards;` は、アニメーション終了後も
+  その最後の状態（例: opacity: 0）を維持するために重要
+*/
+
+.animate-overlay-in {
+  animation: fadeIn 200ms ease-out forwards;
+}
+.animate-overlay-out {
+  animation: fadeOut 200ms ease-out forwards;
+}
+
+.animate-content-in {
+  animation: zoomAndSlideIn 200ms ease-out forwards;
+}
+.animate-content-out {
+  animation: zoomAndSlideOut 200ms ease-out forwards;
+}
+
+/* --- Drawer Animation Keyframes --- */
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToTop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+/* --- Drawer Animation Classes --- */
+/*
+  Dialogと同様に、アニメーション終了後も状態を維持するために
+  `animation-fill-mode: forwards;` が重要です。
+*/
+.animate-drawer-in-right {
+  animation: slideInFromRight 200ms ease-out forwards;
+}
+.animate-drawer-out-right {
+  animation: slideOutToRight 200ms ease-out forwards;
+}
+
+.animate-drawer-in-left {
+  animation: slideInFromLeft 200ms ease-out forwards;
+}
+.animate-drawer-out-left {
+  animation: slideOutToLeft 200ms ease-out forwards;
+}
+
+.animate-drawer-in-top {
+  animation: slideInFromTop 200ms ease-out forwards;
+}
+.animate-drawer-out-top {
+  animation: slideOutToTop 200ms ease-out forwards;
+}
+
+.animate-drawer-in-bottom {
+  animation: slideInFromBottom 200ms ease-out forwards;
+}
+.animate-drawer-out-bottom {
+  animation: slideOutToBottom 200ms ease-out forwards;
+}
+
+/* --- Accordion Animation Keyframes --- */
+/*
+  grid-template-rows を 0fr <-> 1fr に変化させることで、
+  要素の高さをJSで計算することなくスムーズなアニメーションを実現します。
+*/
+@keyframes accordion-down {
+  from {
+    grid-template-rows: 0fr;
+  }
+  to {
+    grid-template-rows: 1fr;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    grid-template-rows: 1fr;
+  }
+  to {
+    grid-template-rows: 0fr;
+  }
+}
+
+/* --- Accordion Animation Classes --- */
+.animate-accordion-down {
+  animation: accordion-down 200ms ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 200ms ease-out forwards; /* 閉じる時は状態を維持 */
+}
+
+
+/* --- Original app.css content below --- */
+
+@import "tailwindcss";
+
+/* :root {
+  --background-rgb: 214, 219, 220;
+  --foreground-rgb: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-rgb: 0, 0, 0;
+    --foreground-rgb: 255, 255, 255;
+  }
+}
+
+body {
+  background: rgb(var(--background-rgb));
+  color: rgb(var(--foreground-rgb));
+} */

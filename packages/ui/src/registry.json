@@ -1,0 +1,108 @@
+{
+  "accordion": {
+    "path": "accordion",
+    "dependencies": [
+      "tailwind-merge",
+      "solid-icons",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "avatar": {
+    "path": "avatar",
+    "dependencies": [
+      "tailwind-merge",
+      "solid-icons",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "button-button": {
+    "path": "button/button",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "button-icon-button": {
+    "path": "button/icon-button",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "calendar": {
+    "path": "calendar",
+    "dependencies": [
+      "tailwind-merge",
+      "solid-icons",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "card": {
+    "path": "card",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "dialog": {
+    "path": "dialog",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "drawer": {
+    "path": "drawer",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "form-checkbox": {
+    "path": "form/checkbox",
+    "dependencies": [
+      "tailwind-merge",
+      "solid-icons",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "form-combobox": {
+    "path": "form/combobox",
+    "dependencies": ["solid-icons", "tailwind-merge"],
+    "internalDependencies": ["table", "popover"]
+  },
+  "form-date-picker": {
+    "path": "form/date-picker",
+    "dependencies": ["solid-icons"],
+    "internalDependencies": ["popover", "form-input", "calendar"]
+  },
+  "form-input": {
+    "path": "form/input",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "form-number-input": {
+    "path": "form/number-input",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "form-radiogroup": {
+    "path": "form/radiogroup",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "form-selector": {
+    "path": "form/selector",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": ["popover"]
+  },
+  "form-textarea": {
+    "path": "form/textarea",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": []
+  },
+  "popover": {
+    "path": "popover",
+    "dependencies": ["@floating-ui/dom"],
+    "internalDependencies": []
+  },
+  "table": {
+    "path": "table",
+    "dependencies": ["tailwind-merge", "solid-icons"],
+    "internalDependencies": []
+  }
+}
