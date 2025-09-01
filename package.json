@@ -6,12 +6,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init:ui": "node ./scripts/init-ui.mjs",
-    "add:ui": "node ./scripts/add-component.mjs",
-    "analyze:ui": "node ./scripts/analyze-deps.mjs"
+    "dev:init": "node ./scripts/init-ui.mjs",
+    "dev:add": "node ./scripts/add-component.mjs",
+    "dev:analyze": "node ./scripts/analyze-deps.mjs"
   },
   "keywords": [],
-  "author": "",
+  "author": "OkihiraHijirikawa",
   "license": "ISC",
   "packageManager": "pnpm@10.15.0"
 }
