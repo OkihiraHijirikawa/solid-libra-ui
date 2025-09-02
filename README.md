@@ -31,23 +31,35 @@ This will generate a configuration file (`libra.config.json`) and inject basic C
 
 ```bash
 npx solid-libra-ui@latest init
-2. Adding Components
+```
+
+### 2. Adding Components
+
 Next, use the add command to add the components you need to your project. Any internal dependencies will be added automatically.
-code
-Bash
+
+```bash
 npx solid-libra-ui@latest add [component-name]
-Examples:
-code
-Bash
+
+```
+
+## Examples:
+
+```bash
+
 # Add a single button component
 npx solid-libra-ui@latest add button
 
 # Add multiple components at once
 npx solid-libra-ui@latest add dialog input
-3. Usage
+
+```
+
+### 3. Usage
+
 When you add a component, its files will be created in the directory specified in libra.config.json (default: src/components/ui). From there, you can import and use it just like any other SolidJS component.
-code
-Tsx
+
+```TSX
+
 import { Button } from "./components/ui/button";
 
 const MyPage = () => {
@@ -61,45 +73,47 @@ const MyPage = () => {
 };
 
 export default MyPage;
-Available Components
-Component	Status
-Accordion	✅
-Avatar	✅
-Button	✅
-Calendar	✅
-Card	✅
-Checkbox	✅
-Combobox	✅
-Date Picker	✅
-Dialog	✅
-Drawer	✅
-Icon Button	✅
-Input	✅
-Number Input	✅
-Popover	✅
-Radio Group	✅
-Selector	✅
-Table	✅
-Textarea	✅
-Future Roadmap
+
+```
+
+### Available Components
+
+Component Status
+Accordion ✅
+Avatar ✅
+Button ✅
+Calendar ✅
+Card ✅
+Checkbox ✅
+Combobox ✅
+Date Picker ✅
+Dialog ✅
+Drawer ✅
+Icon Button ✅
+Input ✅
+Number Input ✅
+Popover ✅
+Radio Group ✅
+Selector ✅
+Table ✅
+Textarea ✅
+
+### Future Roadmap
+
 The following components and features are currently planned for implementation:
-
 Carousel
-
 Pagination
-
 Editable Table
-
 Dark Mode theme switching
-
 Badge
-
 Chart
-
 ...and more, based on community feedback!
-Contributing
+
+### Contributing
+
 We welcome bug reports, feature proposals, and pull requests! Let's work together to enrich the SolidJS ecosystem.
 If you'd like to contribute, please start by opening an issue on GitHub Issues to start a discussion, or feel free to tackle an existing issue.
-License
+
+### License
+
 This project is licensed under the MIT License. You are free to use it for any purpose, commercial or non-commercial.
-```
