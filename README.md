@@ -78,35 +78,35 @@ export default MyPage;
 
 ### Available Components
 
-Component Status
-Accordion ✅
-Avatar ✅
-Button ✅
-Calendar ✅
-Card ✅
-Checkbox ✅
-Combobox ✅
-Date Picker ✅
-Dialog ✅
-Drawer ✅
-Icon Button ✅
-Input ✅
-Number Input ✅
-Popover ✅
-Radio Group ✅
-Selector ✅
-Table ✅
+Component Status  
+Accordion ✅  
+Avatar ✅  
+Button ✅  
+Calendar ✅  
+Card ✅  
+Checkbox ✅  
+Combobox ✅  
+Date Picker ✅  
+Dialog ✅  
+Drawer ✅  
+Icon Button ✅  
+Input ✅  
+Number Input ✅  
+Popover ✅  
+Radio Group ✅  
+Selector ✅  
+Table ✅  
 Textarea ✅
 
 ### Future Roadmap
 
-The following components and features are currently planned for implementation:
-Carousel
-Pagination
-Editable Table
-Dark Mode theme switching
-Badge
-Chart
+The following components and features are currently planned for implementation:  
+Carousel  
+Pagination  
+Editable Table  
+Dark Mode theme switching  
+Badge  
+Chart  
 ...and more, based on community feedback!
 
 ### Contributing
