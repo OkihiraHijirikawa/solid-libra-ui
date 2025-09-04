@@ -7,7 +7,6 @@ const COMPONENTS_BASE_DIR = path.resolve(
 );
 
 async function analyzeDependencies() {
-  console.log("🔍 Analyzing all nested component dependencies...");
   const registry = {};
 
   // 1. 全てのコンポーネントのパスを、賢くなった関数で見つける
@@ -54,7 +53,14 @@ async function analyzeDependencies() {
           // solid-js は除外
         } else {
           // 外部NPMパッケージ
-          npmDependencies.add(source);
+          let packageName = source;
+          // スコープ付きパッケージでない(@で始まらない)かつ、
+          // パス区切り(/)を含む場合 (例: "solid-icons/fi")
+          if (!packageName.startsWith("@") && packageName.includes("/")) {
+            // 最初の "/" までの部分をパッケージ名として抽出する
+            packageName = packageName.split("/")[0];
+          }
+          npmDependencies.add(packageName);
         }
       }
     }
@@ -66,7 +72,6 @@ async function analyzeDependencies() {
     };
   }
 
-  console.log("\n✅ Analysis complete! Here is the generated registry data:\n");
   console.log(JSON.stringify(registry, null, 2));
 }
 

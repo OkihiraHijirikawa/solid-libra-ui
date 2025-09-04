@@ -43,19 +43,33 @@ async function main() {
 }
 
 async function addComponentRecursive(componentName, registry, processed) {
-  if (processed.has(componentName)) return;
-  processed.add(componentName);
+  let effectiveComponentName = componentName;
+  let component = registry[effectiveComponentName];
 
-  const component = registry[componentName];
+  // もし指定された名前で見つからず、"button-button" のような
+  // ネストされた名前が存在する場合は、そちらを優先的に採用する
+  const nestedComponentName = `${componentName}-${componentName}`;
+  if (!component && registry[nestedComponentName]) {
+    console.log(
+      `  ℹ️  Note: Resolving '${componentName}' as nested component '${nestedComponentName}'.`
+    );
+    effectiveComponentName = nestedComponentName;
+    component = registry[effectiveComponentName];
+  }
+
+  if (processed.has(effectiveComponentName)) return;
+  processed.add(effectiveComponentName);
+
   if (!component)
     throw new Error(`Component '${componentName}' not found in registry.`);
 
+  // 以降の処理では、解決済みの名前(effectiveComponentName)を使う
   if (
     component.internalDependencies &&
     component.internalDependencies.length > 0
   ) {
     console.log(
-      `  - Component '${componentName}' depends on: [${component.internalDependencies.join(
+      `  - Component '${effectiveComponentName}' depends on: [${component.internalDependencies.join(
         ", "
       )}]`
     );
@@ -64,24 +78,16 @@ async function addComponentRecursive(componentName, registry, processed) {
     }
   }
 
-  console.log(`📦 Adding '${componentName}'...`);
-  // ★★★ 修正箇所 No.1 ★★★
-  // copyComponentFiles に registry を渡すようにする
-  await copyComponentFiles(componentName, registry);
+  console.log(`📦 Adding '${effectiveComponentName}'...`);
+  await copyComponentFiles(effectiveComponentName, registry); // 解決済みの名前を渡す
   await installNpmDependencies(component.dependencies);
 }
 
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-//
-//           ここがバグを修正したヘルパー関数です
-//
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 async function copyComponentFiles(componentName, registry) {
   const componentInfo = registry[componentName];
   if (!componentInfo)
     throw new Error(`Component info for '${componentName}' not found.`);
 
-  // ★★★ 修正箇所 No.2 ★★★
   // registryの "path" プロパティを使って正しいソースとターゲットのパスを構築する
   const sourceDir = path.resolve(COMPONENTS_BASE_DIR, componentInfo.path);
   const targetDir = path.resolve(TARGET_DIR_BASE, componentInfo.path);
@@ -107,8 +113,17 @@ async function installNpmDependencies(dependencies) {
   const depsString = dependencies.join(" ");
   console.log(`  📥 Installing NPM deps: ${depsString}...`);
 
-  const command = `pnpm add ${depsString}`;
-  await execPromise(command, { cwd: path.resolve(process.cwd(), "apps/docs") });
+  const command = `pnpm add --filter docs ${depsString}`;
+
+  try {
+    // 実行ディレクトリ(cwd)は monorepoのルート(process.cwd())のままでOK
+    await execPromise(command, { cwd: process.cwd() });
+  } catch (error) {
+    console.error(`❌ Failed to install NPM dependencies for 'docs'.`);
+    console.error("Error:", error.stderr || error.message);
+    // 失敗しても処理を続行したい場合は、以下の行をコメントアウトまたは削除
+    process.exit(1);
+  }
 }
 
 main();

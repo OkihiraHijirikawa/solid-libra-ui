@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:init": "node ./scripts/init-ui.mjs",
-    "dev:add": "node ./scripts/add-component.mjs",
-    "dev:analyze": "node ./scripts/analyze-deps.mjs"
+    "ui:init": "node scripts/init-ui.mjs",
+    "ui:add": "node scripts/add-component.mjs",
+    "ui:build-registry": "node scripts/analyze-deps.mjs > packages/ui/src/registry.json",
+    "dev": "pnpm --filter docs dev"
   },
   "keywords": [],
   "author": "OkihiraHijirikawa",

@@ -17,15 +17,20 @@
     ],
     "internalDependencies": []
   },
+  "button": {
+    "path": "button",
+    "dependencies": ["tailwind-merge", "class-variance-authority"],
+    "internalDependencies": ["button-button", "button-icon-button"]
+  },
   "button-button": {
     "path": "button/button",
     "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": []
+    "internalDependencies": ["button"]
   },
   "button-icon-button": {
     "path": "button/icon-button",
     "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": []
+    "internalDependencies": ["button"]
   },
   "calendar": {
     "path": "calendar",
@@ -34,7 +39,7 @@
       "solid-icons",
       "class-variance-authority"
     ],
-    "internalDependencies": []
+    "internalDependencies": ["form-date-picker"]
   },
   "card": {
     "path": "card",
@@ -51,6 +56,26 @@
     "dependencies": ["tailwind-merge", "class-variance-authority"],
     "internalDependencies": []
   },
+  "form": {
+    "path": "form",
+    "dependencies": [
+      "tailwind-merge",
+      "solid-icons",
+      "class-variance-authority"
+    ],
+    "internalDependencies": [
+      "form-checkbox",
+      "form-combobox",
+      "table",
+      "popover",
+      "form-date-picker",
+      "form-input",
+      "form-number-input",
+      "form-textarea",
+      "form-selector",
+      "form-radiogroup"
+    ]
+  },
   "form-checkbox": {
     "path": "form/checkbox",
     "dependencies": [
@@ -63,12 +88,12 @@
   "form-combobox": {
     "path": "form/combobox",
     "dependencies": ["solid-icons", "tailwind-merge"],
-    "internalDependencies": ["table", "popover"]
+    "internalDependencies": ["form", "table", "popover"]
   },
   "form-date-picker": {
     "path": "form/date-picker",
     "dependencies": ["solid-icons"],
-    "internalDependencies": ["popover", "form-input", "calendar"]
+    "internalDependencies": ["form", "popover", "form-input"]
   },
   "form-input": {
     "path": "form/input",
@@ -103,6 +128,6 @@
   "table": {
     "path": "table",
     "dependencies": ["tailwind-merge", "solid-icons"],
-    "internalDependencies": []
+    "internalDependencies": ["form"]
   }
 }
