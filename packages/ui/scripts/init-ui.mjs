@@ -4,7 +4,7 @@ import path from "path";
 // ユーザーのプロジェクトのルートパス
 const projectRoot = process.cwd();
 
-const targetCssPath = path.resolve(projectRoot, "src/app.css"); // ユーザーのCSSパス（仮）
+const targetCssPath = path.resolve(projectRoot, "src/app.css"); // ユーザーのCSSパス
 const configPath = path.resolve(projectRoot, "libra.config.json");
 
 // Libra UIがインストールされた場所にあるCSSファイルのパスを取得

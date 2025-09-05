@@ -10,7 +10,7 @@ async function analyzeDependencies() {
   console.log("🔍 Analyzing all nested component dependencies...");
   const registry = {};
 
-  // 1. 全てのコンポーネントのパスを、賢くなった関数で見つける
+  // 全てのコンポーネントのパスを検索する
   const componentPaths = await findComponentDirsRecursively(
     COMPONENTS_BASE_DIR
   );
@@ -21,7 +21,6 @@ async function analyzeDependencies() {
       .split(path.sep)
       .join("-");
 
-    // ... (ここから下の依存関係を解析する部分は以前と同じです) ...
     const npmDependencies = new Set();
     const internalDependencies = new Set();
 
@@ -54,7 +53,16 @@ async function analyzeDependencies() {
           // solid-js は除外
         } else {
           // 外部NPMパッケージ
-          npmDependencies.add(source);
+          let packageName = source;
+          // スコープ付きパッケージでない(@で始まらない)かつ、
+          // パス区切り(/)を含む場合 (例: "solid-icons/fi")
+          if (!packageName.startsWith("@") && packageName.includes("/")) {
+            // 最初の "/" までの部分をパッケージ名として抽出する
+            packageName = packageName.split("/")[0];
+          }
+          npmDependencies.add(packageName);
+          // // 外部NPMパッケージ
+          // npmDependencies.add(source);
         }
       }
     }
@@ -70,11 +78,6 @@ async function analyzeDependencies() {
   console.log(JSON.stringify(registry, null, 2));
 }
 
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-//
-//           ここが修正されたヘルパー関数です
-//
-// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 async function findComponentDirsRecursively(startDir) {
   let componentPaths = [];
   const items = await fs.readdir(startDir, { withFileTypes: true });
@@ -83,12 +86,12 @@ async function findComponentDirsRecursively(startDir) {
     (item) => item.name === "index.tsx" && !item.isDirectory()
   );
 
-  // 1. この階層に index.tsx があれば、コンポーネントとしてリストに追加
+  // この階層に index.tsx があれば、コンポーネントとしてリストに追加
   if (hasIndexFile) {
     componentPaths.push(startDir);
   }
 
-  // 2. ★★★そして、探索を止めずに、必ずサブディレクトリもチェックしに行く★★★
+  // サブディレクトリもチェック
   for (const item of items) {
     if (item.isDirectory()) {
       const nestedPaths = await findComponentDirsRecursively(
@@ -101,7 +104,7 @@ async function findComponentDirsRecursively(startDir) {
   return componentPaths;
 }
 
-// 指定ディレクトリ以下の全ファイルパスを再帰的に取得 (これは変更なし)
+// 指定ディレクトリ以下の全ファイルパスを再帰的に取得
 async function getFilesRecursively(dir) {
   const dirents = await fs.readdir(dir, { withFileTypes: true });
   const files = await Promise.all(

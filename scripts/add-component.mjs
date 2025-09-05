@@ -79,7 +79,7 @@ async function addComponentRecursive(componentName, registry, processed) {
   }
 
   console.log(`📦 Adding '${effectiveComponentName}'...`);
-  await copyComponentFiles(effectiveComponentName, registry); // 解決済みの名前を渡す
+  await copyComponentFiles(effectiveComponentName, registry);
   await installNpmDependencies(component.dependencies);
 }
 
@@ -116,12 +116,11 @@ async function installNpmDependencies(dependencies) {
   const command = `pnpm add --filter docs ${depsString}`;
 
   try {
-    // 実行ディレクトリ(cwd)は monorepoのルート(process.cwd())のままでOK
+    // 実行ディレクトリ(cwd)は monorepoのルート(process.cwd())
     await execPromise(command, { cwd: process.cwd() });
   } catch (error) {
     console.error(`❌ Failed to install NPM dependencies for 'docs'.`);
     console.error("Error:", error.stderr || error.message);
-    // 失敗しても処理を続行したい場合は、以下の行をコメントアウトまたは削除
     process.exit(1);
   }
 }
