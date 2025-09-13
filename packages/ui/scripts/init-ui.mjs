@@ -39,7 +39,7 @@ async function initialize() {
     console.log("✅ Created config file: libra.config.json");
   }
 
-  // 2. スタイルの初期化
+  // 2. スタイルの初期化 (ここから下を修正)
   try {
     console.log("🎨 Initializing base styles in 'src/app.css'...");
     const libraCssContent = await fs.readFile(sourceCssPath, "utf-8");
@@ -56,8 +56,39 @@ async function initialize() {
       return;
     }
 
-    const combinedCss = `/* Libra UI Base Styles */\n${libraCssContent}\n\n${appCssContent}`;
-    await fs.writeFile(targetCssPath, combinedCss);
+    const libraStylesToAdd = `\n\n/* Libra UI Base Styles */\n${libraCssContent}`;
+    let finalCssContent;
+
+    // Tailwind CSSのディレクティブを探して、その直後に挿入を試みる
+    const tailwindDirectives = [
+      '@import "tailwindcss";',
+      "@tailwind utilities;",
+      "@tailwind components;",
+      "@tailwind base;",
+    ];
+    let injectionPointFound = false;
+
+    for (const directive of tailwindDirectives) {
+      if (appCssContent.includes(directive)) {
+        // 見つかったディレクティブの後にライブラリのスタイルを挿入
+        finalCssContent = appCssContent.replace(
+          directive,
+          `${directive}${libraStylesToAdd}`
+        );
+        injectionPointFound = true;
+        console.log(`  - Injected base styles after '${directive}'.`);
+        break; // 最初の候補が見つかったらループを抜ける
+      }
+    }
+
+    // 適切な挿入箇所が見つからなかった場合、ファイルの末尾に追加する
+    if (!injectionPointFound) {
+      finalCssContent = appCssContent + libraStylesToAdd;
+      console.log("  - Appended base styles to the end of the file.");
+    }
+
+    await fs.writeFile(targetCssPath, finalCssContent);
+
     console.log("✅ Successfully added base styles.");
   } catch (error) {
     console.error("❌ Failed to initialize styles:", error);
