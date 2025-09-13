@@ -17,12 +17,12 @@ export { default as Avatar } from "./components/avatar";
 export type { AvatarProps } from "./components/avatar/types";
 
 // Button コンポーネント
-export { default as Button } from "./components/button/button";
-export type { ButtonProps } from "./components/button/button/types";
+export { default as Button } from "./components/button";
+export type { ButtonProps } from "./components/button/types";
 
 // IconButton コンポーネント
-export { default as IconButton } from "./components/button/icon-button";
-export type { IconButtonProps } from "./components/button/icon-button/types";
+export { default as IconButton } from "./components/icon-button";
+export type { IconButtonProps } from "./components/icon-button/types";
 
 // Calendar コンポーネント
 export { default as Calendar } from "./components/calendar";
@@ -100,36 +100,36 @@ export type { TableProps, ColumnDef } from "./components/table/types";
 
 /* Form コンポーネント */
 // Checkbox コンポーネント
-export { default as Checkbox } from "./components/form/checkbox";
-export type { CheckboxProps } from "./components/form/checkbox/types";
+export { default as Checkbox } from "./components/checkbox";
+export type { CheckboxProps } from "./components/checkbox/types";
 
 // Combobox コンポーネント
-export { default as Combobox } from "./components/form/combobox";
-export type { ComboBoxProps } from "./components/form/combobox/types";
+export { default as Combobox } from "./components/combobox";
+export type { ComboBoxProps } from "./components/combobox/types";
 
 // DatePicker コンポーネント
-export { default as DatePicker } from "./components/form/date-picker";
-export type { DatePickerProps } from "./components/form/date-picker/types";
+export { default as DatePicker } from "./components/date-picker";
+export type { DatePickerProps } from "./components/date-picker/types";
 
 // Input コンポーネント
-export { default as Input } from "./components/form/input";
-export type { InputProps } from "./components/form/input/types";
+export { default as Input } from "./components/input";
+export type { InputProps } from "./components/input/types";
 
 // NumberInput コンポーネント
-export { default as NumberInput } from "./components/form/number-input";
-export type { NumberInputProps } from "./components/form/number-input/types";
+export { default as NumberInput } from "./components/number-input";
+export type { NumberInputProps } from "./components/number-input/types";
 
 // RadioGroup コンポーネント
-export { RadioGroup, RadioGroupItem } from "./components/form/radiogroup";
+export { RadioGroup, RadioGroupItem } from "./components/radiogroup";
 export type {
   RadioGroupProps,
   RadioGroupItemProps,
-} from "./components/form/radiogroup/types";
+} from "./components/radiogroup/types";
 
 // Selector コンポーネント
-export { default as Selector } from "./components/form/selector";
-export type { SelectorProps } from "./components/form/selector/types";
+export { default as Selector } from "./components/selector";
+export type { SelectorProps } from "./components/selector/types";
 
 // Textarea コンポーネント
-export { default as Textarea } from "./components/form/textarea";
-export type { TextareaProps } from "./components/form/textarea/types";
+export { default as Textarea } from "./components/textarea";
+export type { TextareaProps } from "./components/textarea/types";

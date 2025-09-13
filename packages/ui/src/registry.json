@@ -1,6 +1,6 @@
 {
   "accordion": {
-    "path": "accordion",
+    "path": "packages/ui/src/components/accordion",
     "dependencies": [
       "tailwind-merge",
       "solid-icons",
@@ -9,7 +9,7 @@
     "internalDependencies": []
   },
   "avatar": {
-    "path": "avatar",
+    "path": "packages/ui/src/components/avatar",
     "dependencies": [
       "tailwind-merge",
       "solid-icons",
@@ -18,66 +18,36 @@
     "internalDependencies": []
   },
   "button": {
-    "path": "button",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": ["button-button", "button-icon-button"]
-  },
-  "button-button": {
-    "path": "button/button",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": ["button"]
-  },
-  "button-icon-button": {
-    "path": "button/icon-button",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": ["button"]
-  },
-  "calendar": {
-    "path": "calendar",
+    "path": "packages/ui/src/components/button",
     "dependencies": [
       "tailwind-merge",
-      "solid-icons",
       "class-variance-authority"
     ],
-    "internalDependencies": ["form-date-picker"]
+    "internalDependencies": [
+      "use-ripple"
+    ]
   },
-  "card": {
-    "path": "card",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": []
-  },
-  "dialog": {
-    "path": "dialog",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": []
-  },
-  "drawer": {
-    "path": "drawer",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": []
-  },
-  "form": {
-    "path": "form",
+  "calendar": {
+    "path": "packages/ui/src/components/calendar",
     "dependencies": [
       "tailwind-merge",
       "solid-icons",
       "class-variance-authority"
     ],
     "internalDependencies": [
-      "form-checkbox",
-      "form-combobox",
-      "table",
-      "popover",
-      "form-date-picker",
-      "form-input",
-      "form-number-input",
-      "form-textarea",
-      "form-selector",
-      "form-radiogroup"
+      "date-picker"
     ]
   },
-  "form-checkbox": {
-    "path": "form/checkbox",
+  "card": {
+    "path": "packages/ui/src/components/card",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "checkbox": {
+    "path": "packages/ui/src/components/checkbox",
     "dependencies": [
       "tailwind-merge",
       "solid-icons",
@@ -85,49 +55,117 @@
     ],
     "internalDependencies": []
   },
-  "form-combobox": {
-    "path": "form/combobox",
-    "dependencies": ["solid-icons", "tailwind-merge"],
-    "internalDependencies": ["form", "table", "popover"]
+  "combobox": {
+    "path": "packages/ui/src/components/combobox",
+    "dependencies": [
+      "solid-icons",
+      "tailwind-merge"
+    ],
+    "internalDependencies": [
+      "popover",
+      "table",
+      "input"
+    ]
   },
-  "form-date-picker": {
-    "path": "form/date-picker",
-    "dependencies": ["solid-icons"],
-    "internalDependencies": ["form", "popover", "form-input"]
+  "date-picker": {
+    "path": "packages/ui/src/components/date-picker",
+    "dependencies": [
+      "solid-icons"
+    ],
+    "internalDependencies": [
+      "popover",
+      "calendar",
+      "input"
+    ]
   },
-  "form-input": {
-    "path": "form/input",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
+  "dialog": {
+    "path": "packages/ui/src/components/dialog",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
     "internalDependencies": []
   },
-  "form-number-input": {
-    "path": "form/number-input",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
+  "drawer": {
+    "path": "packages/ui/src/components/drawer",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
     "internalDependencies": []
   },
-  "form-radiogroup": {
-    "path": "form/radiogroup",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
+  "icon-button": {
+    "path": "packages/ui/src/components/icon-button",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
+    "internalDependencies": [
+      "use-ripple"
+    ]
+  },
+  "input": {
+    "path": "packages/ui/src/components/input",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
     "internalDependencies": []
   },
-  "form-selector": {
-    "path": "form/selector",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
-    "internalDependencies": ["popover"]
-  },
-  "form-textarea": {
-    "path": "form/textarea",
-    "dependencies": ["tailwind-merge", "class-variance-authority"],
+  "number-input": {
+    "path": "packages/ui/src/components/number-input",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
     "internalDependencies": []
   },
   "popover": {
-    "path": "popover",
-    "dependencies": ["@floating-ui/dom"],
+    "path": "packages/ui/src/components/popover",
+    "dependencies": [
+      "@floating-ui/dom"
+    ],
     "internalDependencies": []
   },
+  "radiogroup": {
+    "path": "packages/ui/src/components/radiogroup",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "selector": {
+    "path": "packages/ui/src/components/selector",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
+    "internalDependencies": [
+      "popover"
+    ]
+  },
   "table": {
-    "path": "table",
-    "dependencies": ["tailwind-merge", "solid-icons"],
-    "internalDependencies": ["form"]
+    "path": "packages/ui/src/components/table",
+    "dependencies": [
+      "tailwind-merge",
+      "solid-icons"
+    ],
+    "internalDependencies": [
+      "input"
+    ]
+  },
+  "textarea": {
+    "path": "packages/ui/src/components/textarea",
+    "dependencies": [
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
+    "internalDependencies": []
+  },
+  "use-ripple": {
+    "path": "packages/ui/src/components/use-ripple",
+    "dependencies": [],
+    "internalDependencies": []
   }
 }

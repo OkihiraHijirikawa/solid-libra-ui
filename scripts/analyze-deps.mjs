@@ -33,19 +33,26 @@ async function analyzeDependencies() {
       for (const match of importMatches) {
         const source = match[1];
         if (source.startsWith(".")) {
-          // ローカルの相対パスインポートを解析して内部依存を特定
           const resolvedPath = path.resolve(path.dirname(file), source);
-          if (resolvedPath.startsWith(COMPONENTS_BASE_DIR)) {
-            const potentialDepPath = path.dirname(resolvedPath);
+
+          // 解決されたパスが、他のどのコンポーネントディレクトリに属するかをチェック
+          for (const depPath of componentPaths) {
+            // 自分自身への参照は除外する
+            if (depPath === componentPath) continue;
+
+            // 解決されたパスが、他のコンポーネントのディレクトリパスそのものか、
+            // またはそのディレクトリの内部を指しているかを判定
+            // (例: "./button" のような拡張子なしインポートに対応)
             if (
-              componentPaths.includes(potentialDepPath) &&
-              potentialDepPath !== componentPath
+              resolvedPath === depPath ||
+              resolvedPath.startsWith(depPath + path.sep)
             ) {
               const internalDepName = path
-                .relative(COMPONENTS_BASE_DIR, potentialDepPath)
+                .relative(COMPONENTS_BASE_DIR, depPath)
                 .split(path.sep)
                 .join("-");
               internalDependencies.add(internalDepName);
+              break; // 依存関係が特定できたらループを抜ける
             }
           }
         } else if (source.startsWith("solid-js")) {
@@ -53,10 +60,7 @@ async function analyzeDependencies() {
         } else {
           // 外部NPMパッケージ
           let packageName = source;
-          // スコープ付きパッケージでない(@で始まらない)かつ、
-          // パス区切り(/)を含む場合 (例: "solid-icons/fi")
           if (!packageName.startsWith("@") && packageName.includes("/")) {
-            // 最初の "/" までの部分をパッケージ名として抽出する
             packageName = packageName.split("/")[0];
           }
           npmDependencies.add(packageName);
@@ -65,7 +69,7 @@ async function analyzeDependencies() {
     }
 
     registry[componentName] = {
-      path: path.relative(COMPONENTS_BASE_DIR, componentPath),
+      path: path.relative(process.cwd(), componentPath), // ルートからの相対パスに変更
       dependencies: Array.from(npmDependencies),
       internalDependencies: Array.from(internalDependencies),
     };
@@ -82,12 +86,10 @@ async function findComponentDirsRecursively(startDir) {
     (item) => item.name === "index.tsx" && !item.isDirectory()
   );
 
-  // 階層に index.tsx があれば、コンポーネントとしてリストに追加
   if (hasIndexFile) {
     componentPaths.push(startDir);
   }
 
-  // サブディレクトリもチェックする
   for (const item of items) {
     if (item.isDirectory()) {
       const nestedPaths = await findComponentDirsRecursively(
@@ -100,7 +102,6 @@ async function findComponentDirsRecursively(startDir) {
   return componentPaths;
 }
 
-// 指定ディレクトリ以下の全ファイルパスを再帰的に取得
 async function getFilesRecursively(dir) {
   const dirents = await fs.readdir(dir, { withFileTypes: true });
   const files = await Promise.all(

@@ -9,14 +9,10 @@ const REGISTRY_PATH = path.resolve(
   process.cwd(),
   "packages/ui/src/registry.json"
 );
-const COMPONENTS_BASE_DIR = path.resolve(
-  process.cwd(),
-  "packages/ui/src/components"
-); // ソースのベースパス
 const TARGET_DIR_BASE = path.resolve(
   process.cwd(),
   "apps/docs/src/components/ui"
-); // ターゲットのベースパス
+);
 
 async function main() {
   const initialComponent = process.argv[2];
@@ -43,33 +39,27 @@ async function main() {
 }
 
 async function addComponentRecursive(componentName, registry, processed) {
-  let effectiveComponentName = componentName;
-  let component = registry[effectiveComponentName];
+  if (processed.has(componentName)) return;
 
-  // もし指定された名前で見つからず、"button-button" のような
-  // ネストされた名前が存在する場合は、そちらを優先的に採用する
-  const nestedComponentName = `${componentName}-${componentName}`;
-  if (!component && registry[nestedComponentName]) {
-    console.log(
-      `  ℹ️  Note: Resolving '${componentName}' as nested component '${nestedComponentName}'.`
-    );
-    effectiveComponentName = nestedComponentName;
-    component = registry[effectiveComponentName];
-  }
-
-  if (processed.has(effectiveComponentName)) return;
-  processed.add(effectiveComponentName);
+  const component = registry[componentName];
 
   if (!component)
     throw new Error(`Component '${componentName}' not found in registry.`);
 
-  // 以降の処理では、解決済みの名前(effectiveComponentName)を使う
+  processed.add(componentName);
+
+  // 先に自身のファイルコピーとnpmインストールを行う
+  console.log(`📦 Adding '${componentName}'...`);
+  await copyComponentFiles(componentName, component);
+  await installNpmDependencies(component.dependencies);
+
+  // その後、依存関係の解決を再帰的に行う
   if (
     component.internalDependencies &&
     component.internalDependencies.length > 0
   ) {
     console.log(
-      `  - Component '${effectiveComponentName}' depends on: [${component.internalDependencies.join(
+      `  - Component '${componentName}' depends on: [${component.internalDependencies.join(
         ", "
       )}]`
     );
@@ -77,20 +67,15 @@ async function addComponentRecursive(componentName, registry, processed) {
       await addComponentRecursive(dep, registry, processed);
     }
   }
-
-  console.log(`📦 Adding '${effectiveComponentName}'...`);
-  await copyComponentFiles(effectiveComponentName, registry);
-  await installNpmDependencies(component.dependencies);
 }
 
-async function copyComponentFiles(componentName, registry) {
-  const componentInfo = registry[componentName];
-  if (!componentInfo)
-    throw new Error(`Component info for '${componentName}' not found.`);
-
-  // registryの "path" プロパティを使って正しいソースとターゲットのパスを構築する
-  const sourceDir = path.resolve(COMPONENTS_BASE_DIR, componentInfo.path);
-  const targetDir = path.resolve(TARGET_DIR_BASE, componentInfo.path);
+async function copyComponentFiles(componentName, componentInfo) {
+  const sourceDir = path.resolve(process.cwd(), componentInfo.path);
+  const targetSubPath = componentInfo.path.replace(
+    "packages/ui/src/components/",
+    ""
+  );
+  const targetDir = path.resolve(TARGET_DIR_BASE, targetSubPath);
 
   try {
     await fs.access(targetDir);
@@ -100,10 +85,13 @@ async function copyComponentFiles(componentName, registry) {
     return;
   } catch {}
 
-  // fs.cp は親ディレクトリも自動で作ってくれるので mkdir は不要
+  // fs.cp は親ディレクトリも自動で作ってくれる
   await fs.cp(sourceDir, targetDir, { recursive: true });
   console.log(
-    `  - Copied files for '${componentName}' from '${componentInfo.path}'`
+    `  - Copied all files for '${componentName}' to '${path.relative(
+      process.cwd(),
+      targetDir
+    )}'`
   );
 }
 
@@ -111,12 +99,11 @@ async function installNpmDependencies(dependencies) {
   if (!dependencies || dependencies.length === 0) return;
 
   const depsString = dependencies.join(" ");
-  console.log(`  📥 Installing NPM deps: ${depsString}...`);
+  console.log(`  📥 Installing NPM deps for docs: ${depsString}...`);
 
   const command = `pnpm add --filter docs ${depsString}`;
 
   try {
-    // 実行ディレクトリ(cwd)は monorepoのルート(process.cwd())
     await execPromise(command, { cwd: process.cwd() });
   } catch (error) {
     console.error(`❌ Failed to install NPM dependencies for 'docs'.`);

@@ -7,7 +7,7 @@ import {
   BiSolidPin,
   BiRegularPin,
 } from "solid-icons/bi";
-import Input from "../form/input";
+import Input from "../input";
 import { AiOutlineSearch } from "solid-icons/ai";
 import { useTable } from "./use-table";
 import {
