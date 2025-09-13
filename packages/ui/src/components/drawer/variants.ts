@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-/** オーバーレイ（Dialogのものを再利用） */
+/** オーバーレイ */
 export const overlayVariants = cva("fixed inset-0 z-50 bg-black/60", {
   variants: {
     state: {

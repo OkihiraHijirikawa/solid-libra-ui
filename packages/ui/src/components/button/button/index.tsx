@@ -45,7 +45,6 @@ const Button = (props: ButtonProps) => {
       onClick={handleClick}
     >
       <Show
-        // isMounted() の条件を削除し、loading のみに依存させる
         when={mergedProps.loading}
         fallback={
           <>

@@ -11,12 +11,10 @@ export interface DialogTriggerProps {
 
 export interface DialogContentProps {
   children: JSX.Element;
-  /* Dialogのコンテンツ部分に追加するCSSクラス */
   class?: string;
 }
 
 export interface DialogOverlayProps {
-  /* オーバーレイ部分に追加するCSSクラス */
   class?: string;
 }
 

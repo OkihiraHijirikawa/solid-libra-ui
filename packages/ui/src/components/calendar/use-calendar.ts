@@ -77,8 +77,9 @@ export const useCalendar = (props: CalendarProps) => {
       const dateYMD = formatDateToYMD(date);
       const dayOfWeek = date.getDay();
 
-      const isDisabled =
-        (minYMD && dateYMD < minYMD) || (maxYMD && dateYMD > maxYMD);
+      const isDisabled = Boolean(
+        (minYMD && dateYMD < minYMD) || (maxYMD && dateYMD > maxYMD)
+      );
 
       return {
         day,

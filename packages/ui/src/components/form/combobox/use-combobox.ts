@@ -46,7 +46,7 @@ export const useComboBox = <T extends {}>(props: ComboBoxProps<T>) => {
 
         // DOMが更新されるのを待ってから処理を実行
         requestAnimationFrame(() => {
-          const activeRowEl = contentEl().querySelector<HTMLTableRowElement>(
+          const activeRowEl = contentEl()?.querySelector<HTMLTableRowElement>(
             'tr[data-active="true"]'
           );
           if (activeRowEl) {

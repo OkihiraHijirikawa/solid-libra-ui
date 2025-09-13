@@ -21,10 +21,10 @@ import type { TableProps } from "./types";
 const Table = <T extends {}>(props: TableProps<T>) => {
   const mergedProps = mergeProps(
     {
-      headerVariant: "default",
+      headerVariant: "default" as "default" | "brand" | undefined,
       striped: false,
       showRowBorder: true,
-      layout: "fit",
+      layout: "fit" as "fit" | "overflow" | undefined,
       rowHeight: 41,
       filterPlaceholder: "テーブル内を検索...",
       enableFiltering: true,
@@ -87,7 +87,11 @@ const Table = <T extends {}>(props: TableProps<T>) => {
         class="flex-1 rounded-md border border-[var(--lb-table-border-outer)] overflow-auto"
         style={{ "scroll-padding-top": "32px" }}
       >
-        <table class={getTableClasses(mergedProps.layout)}>
+        <table
+          class={getTableClasses(
+            mergedProps.layout as "fit" | "overflow" | undefined
+          )}
+        >
           <ColGroup />
           <thead class="sticky top-0 z-10">
             <tr>
@@ -100,7 +104,12 @@ const Table = <T extends {}>(props: TableProps<T>) => {
                     <th
                       style={column.style}
                       class={twMerge(
-                        getHeaderClasses(mergedProps.headerVariant),
+                        getHeaderClasses(
+                          mergedProps.headerVariant as
+                            | "default"
+                            | "brand"
+                            | undefined
+                        ),
                         column.enableSorting && "cursor-pointer select-none",
                         column.isLastPinned &&
                           "shadow-[4px_0_4px_-2px_rgba(0,0,0,0.1)]",

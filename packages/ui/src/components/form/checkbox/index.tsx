@@ -33,7 +33,12 @@ const Checkbox = (props: CheckboxProps) => {
           data-state={mergedProps.checked ? "checked" : "unchecked"}
           class={twMerge(
             checkboxVariants({
-              variant: mergedProps.variant,
+              variant: mergedProps.variant as
+                | "brand"
+                | "primary"
+                | "secondary"
+                | null
+                | undefined,
               isError: mergedProps.isError,
             })
           )}

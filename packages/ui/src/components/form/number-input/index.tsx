@@ -7,7 +7,7 @@ import type { NumberInputProps } from "./types";
 
 const NumberInput: Component<NumberInputProps> = (props) => {
   const mergedProps = mergeProps(
-    { iconPosition: "left", decimalPlaces: 0 },
+    { iconPosition: "left" as "left" | "right" | undefined, decimalPlaces: 0 },
     props
   );
 

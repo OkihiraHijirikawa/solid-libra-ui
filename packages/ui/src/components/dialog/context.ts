@@ -5,7 +5,6 @@ import type { Accessor, Setter } from "solid-js";
 interface DialogContextType {
   isOpen: Accessor<boolean>;
   setIsOpen: Setter<boolean>;
-  // アクセシビリティのためにtitleとdescriptionのIDを共有する
   titleId: Accessor<string>;
   descriptionId: Accessor<string>;
 }

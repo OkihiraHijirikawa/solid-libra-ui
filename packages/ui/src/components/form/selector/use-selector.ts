@@ -27,7 +27,7 @@ export const useSelector = <T>(props: SelectorProps<T>) => {
     on(activeValue, (val) => {
       if (!isOpen() || val === null || !contentEl()) return;
       requestAnimationFrame(() => {
-        const activeEl = contentEl().querySelector<HTMLDivElement>(
+        const activeEl = contentEl()?.querySelector<HTMLDivElement>(
           `[data-value="${String(props.displayValue(val))}"]`
         );
         if (activeEl) {

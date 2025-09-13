@@ -15,6 +15,7 @@ import {
   shift,
   offset,
   autoUpdate,
+  Placement,
 } from "@floating-ui/dom";
 import { PopoverContext, usePopoverContext } from "./context";
 import type { PopoverProps, PopoverContentProps } from "./types";
@@ -92,7 +93,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
   const updatePosition = () => {
     if (!triggerEl() || !contentEl()) return;
     computePosition(triggerEl()!, contentEl()!, {
-      placement: mergedProps.placement,
+      placement: mergedProps.placement as Placement,
       middleware: [offset(mergedProps.offset), flip(), shift({ padding: 8 })],
     }).then(({ x, y }) => {
       if (contentEl()) {

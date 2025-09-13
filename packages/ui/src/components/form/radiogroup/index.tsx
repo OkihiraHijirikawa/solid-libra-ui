@@ -48,7 +48,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
     name: () => merged.name,
     selectedValue: () => merged.value,
     onChange: (value) => merged.onChange?.(value),
-    variant: () => merged.variant,
+    variant: () => merged.variant as "brand" | "primary" | "secondary",
     isError: () => merged.isError,
   };
 
@@ -58,7 +58,13 @@ export const RadioGroup = (props: RadioGroupProps) => {
         role="radiogroup"
         class={twMerge(
           // rootVariantsに関数の引数としてorientationを渡す
-          rootVariants({ orientation: merged.orientation }),
+          rootVariants({
+            orientation: merged.orientation as
+              | "vertical"
+              | "horizontal"
+              | null
+              | undefined,
+          }),
           merged.class
         )}
       >

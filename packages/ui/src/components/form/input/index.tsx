@@ -26,7 +26,11 @@ const Input = (props: InputProps) => {
     <span
       class={twMerge(
         iconVariants({
-          position: mergedProps.iconPosition,
+          position: mergedProps.iconPosition as
+            | "left"
+            | "right"
+            | null
+            | undefined,
           interactive: isIconInteractive(),
         })
       )}
@@ -48,7 +52,11 @@ const Input = (props: InputProps) => {
             inputVariants({
               isError: mergedProps.isError,
               // iconプロパティの有無で "left" | "right" | "none" を決定
-              icon: mergedProps.icon ? mergedProps.iconPosition : "none",
+              icon: (mergedProps.icon ? mergedProps.iconPosition : "none") as
+                | "left"
+                | "right"
+                | null
+                | undefined,
             }),
             // ユーザーが指定したclassは最後にマージする
             mergedProps.class
