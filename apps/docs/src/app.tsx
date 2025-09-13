@@ -3,14 +3,17 @@ import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import Nav from "~/components/Nav";
 import "./app.css";
+import { AppHeader } from "./components/AppHeader";
 
 export default function App() {
   return (
     <Router
       root={(props) => (
         <>
-          <Nav />
-          <Suspense>{props.children}</Suspense>
+          <AppHeader />
+          <main>
+            <Suspense>{props.children}</Suspense>
+          </main>
         </>
       )}
     >

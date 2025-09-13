@@ -1,15 +1,21 @@
 // apps/docs/src/components/AppHeader/index.tsx
 
 import type { Component } from "solid-js";
+import { AiFillGithub } from "solid-icons/ai";
+import { ThemeToggle } from "../ThemeToggle";
 
 export const AppHeader: Component = () => {
   return (
     <header class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
       <div class="container flex h-14 items-center">
         <div class="mr-4 flex">
-          <a href="/" class="mr-6 flex items-center space-x-2">
-            {/* TODO: ロゴ（SVGなど）をここに追加 */}
-            <span class="font-bold">solid-libra-ui</span>
+          <a href="/" class="mx-10 flex items-center space-x-2">
+            <img
+              src="/LibraUI.png"
+              alt="solid-libra-ui Logo"
+              class="h-12 w-12"
+            />
+            <span class="font-bold">Libra UI</span>
           </a>
           <nav class="flex items-center space-x-6 text-sm font-medium">
             <a
@@ -27,16 +33,16 @@ export const AppHeader: Component = () => {
           </nav>
         </div>
         <div class="flex flex-1 items-center justify-end space-x-4">
-          <nav class="flex items-center">
+          <nav class="flex items-center mr-10">
             <a
-              href="https-github-com-OkihiraHijirikawa-solid-libra-ui"
+              href="https://github.com/OkihiraHijirikawa/solid-libra-ui"
               target="_blank"
               rel="noreferrer"
             >
-              {/* TODO: GitHubアイコンのSVGをここに追加 */}
-              <span>GitHub</span>
+              <AiFillGithub class="h-8 w-8" />
+              <span class="sr-only">GitHub</span>
             </a>
-            {/* TODO: ライト/ダークモード切替ボタンをここに追加 */}
+            {/* <ThemeToggle /> */}
           </nav>
         </div>
       </div>
